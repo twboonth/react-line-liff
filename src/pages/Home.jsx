@@ -1,10 +1,8 @@
 import { useState, useEffect } from "react";
 import liff from "@line/liff";
-// import AuthContext from "../context/AuthContext";
 function Home() {
   const LIFF_ID = "1657422004-mYELzrlA";
   const [message, setMessage] = useState("");
-  // const { setAuth } = useContext(AuthContext);
   const [data, setData] = useState({
     isInClient: false,
     os: "ios",
@@ -64,32 +62,48 @@ function Home() {
       </button>
     );
   };
+  const sendMsg = async () => {
+    if (liff.getContext().type !== "none") {
+      await liff.sendMessages([
+        {
+          type: "flex",
+          altText: "This is a Flex Message",
+          contents: {
+            type: "bubble",
+            body: {
+              type: "box",
+              layout: "vertical",
+              contents: [
+                {
+                  type: "button",
+                  style: "primary",
+                  height: "sm",
+                  action: {
+                    type: "uri",
+                    label: "Add to Cart",
+                    uri: "https://developers.line.me",
+                  },
+                },
+              ],
+            },
+          },
+        },
+      ]);
+      alert("Message sent");
+    }
+  };
 
   return (
     <>
       <div className="App">
-        <h1>create-liff-app</h1>
+        {/* <h1>create-liff-app</h1>
         {message && <p>{message}</p>}
         {error && (
           <p>
             <code>{error}</code>
           </p>
-        )}
-        {data && (
-          <div>
-            <p data-testid="isInClient">
-              liff.isInClient: {String(data.isInClient)}
-            </p>
-            <p data-testid="os">liff.getOS: {data.os}</p>
-            <p data-testid="isInAppBrowser">
-              isInAppBrowser: {String(data.isInAppBrowser)}
-            </p>
-            <p data-testid="isLoggedIn">
-              liff.isLoggedIn: {String(data.isLoggedIn)}
-            </p>
-            {renderLoginButton()}
-          </div>
-        )}
+        )} */}
+        {data && <div>{renderLoginButton()}</div>}
         {data && data.isLoggedIn && (
           <>
             <div className="profile">
@@ -99,10 +113,13 @@ function Home() {
                 alt="profileUrl"
                 loading="lazy"
               />
-              <p data-testid="userId">userId: {profile.userId}</p>
+              {/* <p data-testid="userId">userId: {profile.userId}</p> */}
               <p data-testid="displayName">
                 displayName: {profile.displayName}
               </p>
+            </div>
+            <div>
+              <button onClick={() => sendMsg}>sent Data</button>
             </div>
           </>
         )}
