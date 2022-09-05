@@ -64,7 +64,7 @@ function Home() {
   };
   const sendMsg = async () => {
     if (liff.getContext().type !== "none") {
-      await liff.sendMessages([
+      await liff.shareTargetPicker([
         {
           type: "flex",
           altText: "This is a Flex Message",
