@@ -119,7 +119,7 @@ function Home() {
               </p>
             </div>
             <div>
-              <button onClick={() => sendMsg}>sent Data</button>
+              <button onClick={sendMsg}>sent Data</button>
             </div>
           </>
         )}
